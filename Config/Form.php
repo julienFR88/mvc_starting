@@ -1,13 +1,33 @@
 <?php
 class Form{
-	
-	public $controller; 
-	public $errors; 
-
+	/**
+	 * Le contrôleur pour lequel le formulaire est construit
+	 *
+	 * @var object $controller
+	 */
+	public $controller;
+	/**
+	 * Les erreurs de validation du formulaire
+	 *
+	 * @var array $errors
+	 */
+	public $errors;
+	/**
+	 * Constructeur de la classe Form
+	 *
+	 * @param object $controller Le contrôleur pour lequel le formulaire est construit
+	 */
 	public function __construct($controller){
 		$this->controller = $controller; 
 	}
-
+	/**
+	 * Génère le code HTML pour un champ de formulaire
+	 *
+	 * @param string $name Nom du champ de formulaire
+	 * @param string $label Label du champ de formulaire
+	 * @param array $options Options pour le champ de formulaire (par exemple, 'type' => 'text')
+	 * @return string Le code HTML pour le champ de formulaire
+	 */
 	public function input($name,$label,$options = array()){
 		$error = false; 
 		$classError = ''; 
@@ -39,6 +59,10 @@ class Form{
 		}elseif($options['type'] == 'file'){
 			$html .= '<input type="file" class="input-file" id="input'.$name.'" name="'.$name.'" value="'.$value.'"'.$attr.'>';
 		}
+		elseif($options['type'] == 'password'){
+			$html .= '<input type="password" class="input-file" id="input'.$name.'" name="'.$name.'" value="'.$value.'"'.$attr.'>';
+		}
+		
 		if($error){
 			$html .= '<span class="help-inline">'.$error.'</span>';
 		}
